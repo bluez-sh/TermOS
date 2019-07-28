@@ -1,0 +1,31 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/3fdf28bc/
+DRIVERS_KEYBOARD_H	keyboard.h	/^#define DRIVERS_KEYBOARD_H$/;"	d
+DRIVERS_PORTS_H	ports.h	/^#define DRIVERS_PORTS_H$/;"	d
+DRIVERS_SCREEN_H	screen.h	/^#define DRIVERS_SCREEN_H$/;"	d
+MAX_COLS	screen.h	/^#define MAX_COLS /;"	d
+MAX_ROWS	screen.h	/^#define MAX_ROWS /;"	d
+RED_ON_WHITE	screen.h	/^#define RED_ON_WHITE /;"	d
+REG_SCR_CTRL	screen.h	/^#define REG_SCR_CTRL /;"	d
+REG_SCR_DATA	screen.h	/^#define REG_SCR_DATA /;"	d
+VIDEO_ADDR	screen.h	/^#define VIDEO_ADDR /;"	d
+WHITE_ON_BLACK	screen.h	/^#define WHITE_ON_BLACK /;"	d
+clear_screen	screen.c	/^void clear_screen()$/;"	f	typeref:typename:void
+get_col	screen.c	/^static int get_col(int offset)$/;"	f	typeref:typename:int	file:
+get_cursor_offset	screen.c	/^static int get_cursor_offset()$/;"	f	typeref:typename:int	file:
+get_offset	screen.c	/^static int get_offset(int row, int col)$/;"	f	typeref:typename:int	file:
+get_row	screen.c	/^static int get_row(int offset)$/;"	f	typeref:typename:int	file:
+keyboard_callback	keyboard.c	/^static void keyboard_callback(registers_t regs)$/;"	f	typeref:typename:void	file:
+kprint	screen.c	/^void kprint(const char *msg)$/;"	f	typeref:typename:void
+kprint_at	screen.c	/^void kprint_at(const char *msg, int row, int col)$/;"	f	typeref:typename:void
+port_r16	ports.c	/^unsigned short port_r16(unsigned short port)$/;"	f	typeref:typename:unsigned short
+port_r8	ports.c	/^unsigned char port_r8(unsigned short port)$/;"	f	typeref:typename:unsigned char
+port_w16	ports.c	/^void port_w16(unsigned short port, unsigned short data)$/;"	f	typeref:typename:void
+port_w8	ports.c	/^void port_w8(unsigned short port, unsigned char data)$/;"	f	typeref:typename:void
+print_char	screen.c	/^static int print_char(char c, int row, int col, char attr)$/;"	f	typeref:typename:int	file:
+set_cursor_offset	screen.c	/^static void set_cursor_offset(int offset)$/;"	f	typeref:typename:void	file:
