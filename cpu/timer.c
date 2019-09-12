@@ -1,19 +1,15 @@
 #include "timer.h"
 #include "isr.h"
+#include "ports.h"
 #include "../drivers/screen.h"
-#include "../drivers/ports.h"
-#include "../kernel/util.h"
+#include "../libc/function.h"
 
 u32 tick = 0;
 
 static void timer_callback(registers_t regs)
 {
     ++tick;
-    /*char tick_ascii[256];*/
-    /*int_to_ascii(++tick, tick_ascii);*/
-    /*kprint("tick: ");*/
-    /*kprint(tick_ascii);*/
-    /*kprint("\n");*/
+    UNUSED(regs);
 }
 
 void init_timer(u32 freq)
@@ -24,7 +20,7 @@ void init_timer(u32 freq)
     u32 divisor = 1193180 / freq;
     u8 low = (u8)(divisor & 0xff);
     u8 high = (u8)((divisor>>8) & 0xff);
-    port_w8(0x43, 0x36);    /* Command port */ 
+    port_w8(0x43, 0x36);    /* Command port */
     port_w8(0x40, low);
     port_w8(0x40, high);
 }

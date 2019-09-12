@@ -1,6 +1,6 @@
 #include "screen.h"
-#include "ports.h"
-#include "../kernel/util.h"
+#include "../cpu/ports.h"
+#include "../libc/mem.h"
 
 static int print_char(char c, int row, int col, char attr);
 static int get_cursor_offset();
@@ -32,6 +32,14 @@ void kprint_at(const char *msg, int row, int col)
 void kprint(const char *msg)
 {
     kprint_at(msg, -1, -1);
+}
+
+void kprint_backspace()
+{
+    int offset = get_cursor_offset()-2;
+    int row = get_row(offset);
+    int col = get_col(offset);
+    print_char(0x08, row, col, WHITE_ON_BLACK);
 }
 
 void clear_screen()
@@ -70,6 +78,9 @@ static int print_char(char c, int row, int col, char attr)
     if (c == '\n') {
         row = get_row(offset);
         offset = get_offset(row+1, 0);
+    } else if (c == 0x08) {     // handle backspace
+        vid_mem[offset] = ' ';
+        vid_mem[offset+1] = attr;
     } else {
         vid_mem[offset] = c;
         vid_mem[offset+1] = attr;
@@ -82,7 +93,7 @@ static int print_char(char c, int row, int col, char attr)
             mem_cpy(vid_mem + get_offset(i, 0),
                     vid_mem + get_offset(i-1, 0),
                     MAX_COLS << 1);
-        
+
         unsigned char *last_line = vid_mem + get_offset(MAX_ROWS-1, 0);
         for (i = 0; i < (MAX_COLS << 1); i++)
             last_line[i] = 0;

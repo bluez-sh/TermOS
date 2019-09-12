@@ -1,8 +1,10 @@
 #include "idt.h"
 #include "isr.h"
 #include "../drivers/screen.h"
-#include "../drivers/ports.h"
-#include "../kernel/util.h"
+#include "../drivers/keyboard.h"
+#include "../libc/string.h"
+#include "ports.h"
+#include "timer.h"
 
 #define PIC1_CMD 0x20
 #define PIC1_DAT 0x21
@@ -146,4 +148,11 @@ void irq_handler(registers_t r)
         isr_t hdlr = int_handlers[r.int_no];
         hdlr(r);
     }
+}
+
+void irq_install()
+{
+    __asm__ __volatile__("sti");
+    init_timer(50);
+    init_keyboard();
 }

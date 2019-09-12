@@ -80,6 +80,7 @@ typedef struct {
 
 void isr_install();
 void isr_handler(registers_t r);
+void irq_install();
 
 typedef void (*isr_t)(registers_t);
 void register_int_hdlr(u8 n, isr_t hdlr);

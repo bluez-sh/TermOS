@@ -1,18 +1,4 @@
-#include "util.h"
-
-void mem_cpy(void *src, const void *dst, unsigned nbytes)
-{
-    unsigned i;
-    for (i = 0; i < nbytes; i++)
-        *((u8*)dst + i) = *((u8*)src + i);
-}
-
-void mem_set(void *dst, int val, unsigned nbytes)
-{
-    unsigned i;
-    for (i = 0; i < nbytes; i++)
-        *((u8*)dst + i) = (u8)val;
-}
+#include "string.h"
 
 void int_to_ascii(int n, char *str)
 {
@@ -41,6 +27,27 @@ void str_rev(char *s)
 int str_len(char *s)
 {
     int i = 0;
-    while (s[i] != '\0') ++i;
+    while (s[i] != '\0') i++;
     return i;
+}
+
+int str_cmp(char *s1, char *s2)
+{
+    int i;
+    for (i = 0; s1[i] == s2[i]; i++)
+        if (s1[i] == '\0') return 0;
+    return s1[i] - s2[i];
+}
+
+void append(char *s, char ch)
+{
+    int len = str_len(s);
+    s[len] = ch;
+    s[len+1] = '\0';
+}
+
+void backspace(char *s)
+{
+    int len = str_len(s);
+    s[len-1] = '\0';
 }
