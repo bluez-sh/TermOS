@@ -14,6 +14,20 @@ void int_to_ascii(int n, char *str)
     str_rev(str);
 }
 
+void hex_to_ascii(uint32_t n, char *str)
+{
+    int i;
+    append(str, '0');
+    append(str, 'x');
+    for (i = 7; i >= 0; i--) {
+        int8_t nibble = (n & (0xF << (i*4))) >> i*4;
+        if (nibble >= 0xA)
+            append(str, nibble - 0xA + 'a');
+        else
+            append(str, nibble + '0');
+    }
+}
+
 void str_rev(char *s)
 {
     int i, j, temp;

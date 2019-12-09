@@ -9,9 +9,12 @@ isr_comm_stub:  pusha
                 mov     es, ax
                 mov     fs, ax
                 mov     gs, ax
+                push    esp
 
+                cld
                 call    isr_handler
 
+                pop     eax
                 pop     eax
                 mov     ds, ax
                 mov     es, ax
@@ -19,7 +22,6 @@ isr_comm_stub:  pusha
                 mov     gs, ax
                 popa
                 add     esp, 8
-                sti
                 iret
 
 irq_comm_stub:  pusha
@@ -30,9 +32,12 @@ irq_comm_stub:  pusha
                 mov     es, ax
                 mov     fs, ax
                 mov     gs, ax
+                push    esp
 
+                cld
                 call    irq_handler
 
+                pop     ebx
                 pop     ebx
                 mov     ds, bx
                 mov     es, bx
@@ -40,7 +45,6 @@ irq_comm_stub:  pusha
                 mov     gs, bx
                 popa
                 add     esp, 8
-                sti
                 iret
 
 

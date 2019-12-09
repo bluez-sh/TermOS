@@ -33,9 +33,9 @@ const char *sc_name[] = { "ERROR", "Esc", "1", "2", "3", "4", "5", "6",
         "LShift", "\\", "Z", "X", "C", "V", "B", "N", "M", ",", ".",
         "/", "RShift", "Keypad *", "LAlt", "Spacebar" };
 
-static void keyboard_callback(registers_t regs)
+static void keyboard_callback(registers_t *regs)
 {
-    u8 scancode = port_r8(0x60);
+    uint8_t scancode = port_r8(0x60);
     /*char sc[16];*/
 
     switch(scancode) {
@@ -58,14 +58,19 @@ static void keyboard_callback(registers_t regs)
     }
 
     if (scancode > MAX_SCANCODE) {
+        if (scancode == 58)
+            kbd_state.caps_on = !kbd_state.caps_on;
         /*int_to_ascii(scancode, sc);*/
         /*kprint("\nScancode: ");*/
         /*kprint(sc);*/
-        return;
     } else {
         char key = kbd_state.shift_held ? 
                    sc_ascii_shift[(int)scancode]
                    : sc_ascii[(int)scancode];
+
+        if (key >= 'a' && key <= 'z' && kbd_state.caps_on)
+            key = sc_ascii_shift[(int)scancode];
+
         char str[2] = {key, '\0'};
         if (key != '?' || scancode == 0x35) {
             append(key_buffer, key);

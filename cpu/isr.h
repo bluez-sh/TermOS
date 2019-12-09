@@ -1,7 +1,7 @@
 #ifndef CPU_ISR_H
 #define CPU_ISR_H
 
-#include "types.h"
+#include <stdint.h>
 
 extern void isr0();
 extern void isr1();
@@ -72,17 +72,17 @@ extern void irq15();
 #define IRQ15 47
 
 typedef struct {
-    u32 ds;                                     //Data Segment selector
-    u32 edi, esi, ebp, esp, ebx, edx, ecx, eax; //Pushed by pusha
-    u32 int_no, err_code;                       //Applicable on interrupt
-    u32 eip, cs, eflags, useresp, ss;           //Pushed automatically by processor
+    uint32_t ds;                                            //Data Segment selector
+    uint32_t edi, esi, ebp, unused_esp, ebx, edx, ecx, eax; //Pushed by pusha
+    uint32_t int_no, err_code;                              //Applicable on interrupt
+    uint32_t eip, cs, eflags, esp, ss;                      //Pushed automatically by processor
 } registers_t;
 
 void isr_install();
-void isr_handler(registers_t r);
+void isr_handler(registers_t *r);
 void irq_install();
 
-typedef void (*isr_t)(registers_t);
-void register_int_hdlr(u8 n, isr_t hdlr);
+typedef void (*isr_t)(registers_t*);
+void register_int_hdlr(uint8_t n, isr_t hdlr);
 
 #endif
