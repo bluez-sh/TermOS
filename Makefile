@@ -16,10 +16,10 @@ kernel.elf: boot/kernel_entry.o ${OBJ}
 	i386-elf-ld -o $@ -Ttext 0x1000 $^
 
 run: os-image.bin
-	qemu-system-i386 -fda $<
+	qemu-system-i386 -boot menu=on -fda $< -hda hdd.img
 
 debug: os-image.bin kernel.elf
-	qemu-system-i386 -s -fda $< &
+	qemu-system-i386 -s -boot menu=on -fda $< -hda hdd.img &
 	${GDB} -ex "target remote localhost:1234" -ex "symbol-file kernel.elf"
 
 %.o: %.c ${HEADERS}
