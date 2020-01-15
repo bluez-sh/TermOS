@@ -28,6 +28,15 @@ void hex_to_ascii(uint32_t n, char *str)
     }
 }
 
+int ascii_to_int(char *str)
+{
+    int i = 0, val = 0;
+    while (str[i] != '\0' &&
+            str[i] >= '0' && str[i] <= '9')
+        val = val * 10 + str[i++]-'0';
+    return val;
+}
+
 void str_rev(char *s)
 {
     int i, j, temp;
@@ -50,6 +59,14 @@ int str_cmp(char *s1, char *s2)
     int i;
     for (i = 0; s1[i] == s2[i]; i++)
         if (s1[i] == '\0') return 0;
+    return s1[i] - s2[i];
+}
+
+int str_cmp_n(char *s1, char *s2, int n)
+{
+    int i;
+    for (i = 0; s1[i] == s2[i]; i++)
+        if (i == n-1) return 0;
     return s1[i] - s2[i];
 }
 

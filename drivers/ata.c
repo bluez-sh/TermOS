@@ -5,9 +5,10 @@
 #include "../libc/string.h"
 #include "../libc/mem.h"
 
-static int is_primary = 1;
-static int is_master  = 1;
-static int base = ATA_PRIMARY_BASE;
+static int is_primary;
+static int is_master;
+static int base;
+static int to_select = 1;
 
 static uint16_t ata_buffer[256];
 
@@ -41,7 +42,7 @@ static int identify(int primary, int master)
     uint8_t status;
 
     base = primary ? ATA_PRIMARY_BASE : ATA_SECONDARY_BASE;
-    
+
     status = port_r8(base + COMMAND_PORT);
     if (status == 0xFF)
         return 0;
@@ -74,7 +75,7 @@ static int identify(int primary, int master)
     }
 
     for (int i = 0; i < 256; i++)
-        ata_buffer[i] = port_r16(base + DATA_PORT); 
+        ata_buffer[i] = port_r16(base + DATA_PORT);
 
     return 1;
 }
@@ -91,19 +92,29 @@ void ata_scan_drives()
         kprint("\n[+] ATA: Secondary Slave Drive detected");
 }
 
+void ata_clear_buffer()
+{
+    mem_set(ata_buffer, 0, 512);
+}
+
 int ata_drive_select(int primary, int master)
 {
     if (!drive_present[primary][master])
         return -1;
+    to_select  = (master != is_master);
     is_primary = primary;
     is_master  = master;
-    base = primary ? ATA_PRIMARY_BASE : ATA_SECONDARY_BASE; 
+    base = primary ? ATA_PRIMARY_BASE : ATA_SECONDARY_BASE;
     return 0;
 }
 
 void ata_pio28(uint32_t addr, int sect_count, int to_read)
 {
-    port_w8(base + DEVICE_PORT, (is_master ? 0xE0 : 0xF0) | ((addr >> 24) & 0x0F));
+    if (to_select)
+        port_w8(base + DEVICE_PORT,
+                (is_master ? 0xE0 : 0xF0) | ((addr >> 24) & 0x0F));
+    to_select = 0;
+
     port_w8(base + ERROR_PORT, 0x00);
     port_w8(base + SECTOR_COUNT_PORT, sect_count);
     port_w8(base + LBA_LOW_PORT, (addr & 0xFF));
@@ -115,7 +126,7 @@ void ata_pio28(uint32_t addr, int sect_count, int to_read)
     if (!sect_count)
         sect_count = 256;
 
-    kprint("\n[+] ATA: PIO28 Initiating Transfer");
+    /*kprint("\n[+] ATA: PIO28 Initiating Transfer");*/
 
     while (sect_count--) {
         uint8_t status = port_r8(base + COMMAND_PORT);
@@ -139,20 +150,23 @@ void ata_pio28(uint32_t addr, int sect_count, int to_read)
 
         for (int i = 0; i < 256; i++) {
             if (to_read)
-                ata_buffer[i] = port_r16(base + DATA_PORT); 
+                ata_buffer[i] = port_r16(base + DATA_PORT);
             else
                 port_w16(base + DATA_PORT, ata_buffer[i]);
         }
     }
 
-    kprint("\n[+] ATA: PIO28 Success");
+    /*kprint("\n[+] ATA: PIO28 Success");*/
 }
 
 void ata_flush()
 {
     uint8_t status;
 
-    port_w8(base + DEVICE_PORT, is_master ? 0xE0 : 0xF0);
+    if (to_select)
+        port_w8(base + DEVICE_PORT, is_master ? 0xE0 : 0xF0);
+    to_select = 0;
+
     port_w8(base + COMMAND_PORT, 0xE7);     // flush command
 
     status = port_r8(base + COMMAND_PORT);

@@ -4,7 +4,7 @@
 #include "../drivers/screen.h"
 #include "../libc/function.h"
 
-uint32_t tick = 0;
+volatile uint32_t tick = 0;
 
 static void timer_callback(registers_t *regs)
 {
@@ -12,6 +12,12 @@ static void timer_callback(registers_t *regs)
     UNUSED(regs);
 }
 
+uint32_t timer_get_ticks()
+{
+    return tick;
+}
+
+/* freq -> ticks per second */
 void init_timer(uint32_t freq)
 {
     register_int_hdlr(IRQ0, timer_callback);

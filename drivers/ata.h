@@ -21,6 +21,7 @@ enum ata_ports {
 
 void ata_init();
 void ata_scan_drives();
+void ata_clear_buffer();
 
 int  ata_drive_select(int is_primary, int is_master);
 void ata_pio28(uint32_t addr, int sect_count, int to_read);

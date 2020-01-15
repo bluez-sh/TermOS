@@ -13,6 +13,7 @@
 #define MAX_SCANCODE 57
 
 static char key_buffer[256];
+static int keys_in_buf = 0;
 
 const char sc_ascii[] = { '?', '?', '1', '2', '3', '4', '5', '6', '7',
         '8', '9', '0', '-', '=', '?', '?', 'q', 'w', 'e', 'r', 't', 'y',
@@ -46,13 +47,17 @@ static void keyboard_callback(registers_t *regs)
             kbd_state.shift_held = 0;
             break;
         case BACKSPACE:
-            backspace(key_buffer);
-            kprint_backspace();
+            if (keys_in_buf > 0) {
+                backspace(key_buffer);
+                kprint_backspace();
+                keys_in_buf--;
+            }
             break;
         case RETURN:
             kprint("\n");
             user_input(key_buffer);
             key_buffer[0] = '\0';
+            keys_in_buf = 0;
             break;
         default: ;
     }
@@ -75,8 +80,8 @@ static void keyboard_callback(registers_t *regs)
         if (key != '?' || scancode == 0x35) {
             append(key_buffer, key);
             kprint(str);
+            keys_in_buf++;
         }
-
         /*int_to_ascii(scancode, sc);*/
         /*kprint("\nScancode: ");*/
         /*kprint(sc);*/

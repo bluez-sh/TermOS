@@ -3,6 +3,7 @@
 #include "../cpu/isr.h"
 #include "shell.h"
 #include "../drivers/ata.h"
+#include "../libc/util.h"
 
 void kmain(void)
 {
@@ -12,16 +13,9 @@ void kmain(void)
     ata_init();
     ata_scan_drives();
 
-    ata_drive_select(1, 1);
-
-    char buf[512] = "\nHurray!! It worked!!!";
-    ata_write_sector(0, (uint8_t*)buf);
-    mem_set(buf, 0, 512);
-
-    ata_read_sector(0, (uint8_t*)buf);
-    kprint(buf);
-
-    kprint("\nSwaOS is running. Type 'poweroff' to halt the CPU.\n");
+    delay(1.5);
+    clear_screen();
+    kprint("\nWelcome to SwaOS!\n");
     kprint("\n>");
 }
 

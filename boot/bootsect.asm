@@ -29,7 +29,7 @@ ld_kernel:  mov     bx, msg_ld_kernel_c
             call    print_nl
 
             mov     bx, kernel_offset_c
-            mov     dh, 25
+            mov     dh, 50
             mov     dl, [boot_drive_c]
             call    disk_load
             ret

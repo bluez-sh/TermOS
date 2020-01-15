@@ -14,9 +14,9 @@ void mem_set(void *dst, int val, unsigned nbytes)
         *((uint8_t *)dst + i) = (uint8_t)val;
 }
 
-#define PAGE_SIZE 4096
-#define MEM_START 0x10000
-uint32_t free_mem_ptr = MEM_START;
+#define PAGE_SIZE 512
+#define MEM_START (0x10000)
+static uint32_t free_mem_ptr = MEM_START;
 
 static uint32_t alloc_page()
 {
@@ -33,11 +33,11 @@ static void free_page()
 
 uint32_t kmalloc(size_t size)
 {
-    uint32_t n;
     uint32_t ret = alloc_page();
     if (size > PAGE_SIZE) {
+        uint32_t n;
         size -= PAGE_SIZE;
-        n = size/PAGE_SIZE;
+        n = size/PAGE_SIZE + 1;
         while (n--) alloc_page();
     }
     return ret;
