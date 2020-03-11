@@ -11,6 +11,7 @@ void str_rev(char *s);
 int str_len(char *s);
 int str_cmp(char *s1, char *s2);
 int str_cmp_n(char *s1, char *s2, int n);
+int str_cpy(char *dst, char *src);
 void append(char *s, char ch);
 void backspace(char *s);
 

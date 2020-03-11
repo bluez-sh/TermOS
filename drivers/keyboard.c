@@ -3,8 +3,8 @@
 #include "../cpu/isr.h"
 #include "../cpu/ports.h"
 #include "../libc/string.h"
-#include "../kernel/kernel.h"
 #include "../libc/function.h"
+#include "../libc/stdio.h"
 
 #define BACKSPACE 0x0e
 #define RETURN    0x1c
@@ -12,7 +12,7 @@
 
 #define MAX_SCANCODE 57
 
-static char key_buffer[256];
+static char key_buffer[512];
 static int keys_in_buf = 0;
 
 const char sc_ascii[] = { '?', '?', '1', '2', '3', '4', '5', '6', '7',
@@ -55,7 +55,7 @@ static void keyboard_callback(registers_t *regs)
             break;
         case RETURN:
             kprint("\n");
-            user_input(key_buffer);
+            copy_to_stdin(key_buffer);
             key_buffer[0] = '\0';
             keys_in_buf = 0;
             break;

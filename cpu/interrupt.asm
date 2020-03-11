@@ -1,27 +1,27 @@
 [extern isr_handler]
 [extern irq_handler]
 
-isr_comm_stub:  pusha
+isr_comm_stub:  pusha               ; push all GPRs
                 mov     ax, ds
-                push    eax
-                mov     ax, 0x10
+                push    eax         ; push ds
+                mov     ax, 0x10    ; load kernel's ds
                 mov     ds, ax
                 mov     es, ax
                 mov     fs, ax
                 mov     gs, ax
-                push    esp
+                push    esp         ; push registers_t*
 
                 cld
                 call    isr_handler
 
-                pop     eax
-                pop     eax
+                pop     eax         ; pop registers_t*
+                pop     eax         ; pop ds
                 mov     ds, ax
                 mov     es, ax
                 mov     fs, ax
                 mov     gs, ax
-                popa
-                add     esp, 8
+                popa                ; pop all GPRs
+                add     esp, 8      ; clean err_code and int_no
                 iret
 
 irq_comm_stub:  pusha
@@ -100,237 +100,189 @@ global irq14
 global irq15
 
 
-isr0:           cli
-                push    byte 0
+isr0:           push    byte 0
                 push    byte 0
                 jmp     isr_comm_stub 
 
-isr1:           cli
-                push    byte 0
+isr1:           push    byte 0
                 push    byte 1
                 jmp     isr_comm_stub
 
-isr2:           cli
-                push    byte 0
+isr2:           push    byte 0
                 push    byte 2
                 jmp     isr_comm_stub
 
-isr3:           cli
-                push    byte 0
+isr3:           push    byte 0
                 push    byte 3
                 jmp     isr_comm_stub
 
-isr4:           cli
-                push    byte 0
+isr4:           push    byte 0
                 push    byte 4
                 jmp     isr_comm_stub
 
-isr5:           cli
-                push    byte 0
+isr5:           push    byte 0
                 push    byte 5
                 jmp     isr_comm_stub
 
-isr6:           cli
-                push    byte 0
+isr6:           push    byte 0
                 push    byte 6
                 jmp     isr_comm_stub
 
-isr7:           cli
-                push    byte 0
+isr7:           push    byte 0
                 push    byte 7
                 jmp     isr_comm_stub
 
-isr8:           cli
-                push    byte 8
+isr8:           push    byte 8
                 jmp     isr_comm_stub
 
-isr9:           cli
-                push    byte 0
+isr9:           push    byte 0
                 push    byte 9
                 jmp     isr_comm_stub
 
-isr10:          cli
-                push    byte 10
+isr10:          push    byte 10
                 jmp     isr_comm_stub
 
-isr11:          cli
-                push    byte 11
+isr11:          push    byte 11
                 jmp     isr_comm_stub
 
-isr12:          cli
-                push    byte 12
+isr12:          push    byte 12
                 jmp     isr_comm_stub
 
-isr13:          cli
-                push    byte 13
+isr13:          push    byte 13
                 jmp     isr_comm_stub
 
-isr14:          cli
-                push    byte 14
+isr14:          push    byte 14
                 jmp     isr_comm_stub
 
-isr15:          cli
-                push    byte 0
+isr15:          push    byte 0
                 push    byte 15
                 jmp     isr_comm_stub
 
-isr16:          cli
-                push    byte 0
+isr16:          push    byte 0
                 push    byte 16
                 jmp     isr_comm_stub
 
-isr17:          cli
-                push    byte 0
+isr17:          push    byte 0
                 push    byte 17
                 jmp     isr_comm_stub
 
-isr18:          cli
-                push    byte 0
+isr18:          push    byte 0
                 push    byte 18
                 jmp     isr_comm_stub
 
-isr19:          cli
-                push    byte 0
+isr19:          push    byte 0
                 push    byte 19
                 jmp     isr_comm_stub
 
-isr20:          cli
-                push    byte 0
+isr20:          push    byte 0
                 push    byte 20
                 jmp     isr_comm_stub
 
-isr21:          cli
-                push    byte 0
+isr21:          push    byte 0
                 push    byte 21
                 jmp     isr_comm_stub
 
-isr22:          cli
-                push    byte 0
+isr22:          push    byte 0
                 push    byte 22
                 jmp     isr_comm_stub
 
-isr23:          cli
-                push    byte 0
+isr23:          push    byte 0
                 push    byte 23
                 jmp     isr_comm_stub
 
-isr24:          cli
-                push    byte 0
+isr24:          push    byte 0
                 push    byte 24
                 jmp     isr_comm_stub
 
-isr25:          cli
-                push    byte 0
+isr25:          push    byte 0
                 push    byte 25
                 jmp     isr_comm_stub
 
-isr26:          cli
-                push    byte 0
+isr26:          push    byte 0
                 push    byte 26
                 jmp     isr_comm_stub
 
-isr27:          cli
-                push    byte 0
+isr27:          push    byte 0
                 push    byte 27
                 jmp     isr_comm_stub
 
-isr28:          cli
-                push    byte 0
+isr28:          push    byte 0
                 push    byte 28
                 jmp     isr_comm_stub
 
-isr29:          cli
-                push    byte 0
+isr29:          push    byte 0
                 push    byte 29
                 jmp     isr_comm_stub
 
-isr30:          cli
-                push    byte 0
+isr30:          push    byte 0
                 push    byte 30
                 jmp     isr_comm_stub
 
-isr31:          cli
-                push    byte 0
+isr31:          push    byte 0
                 push    byte 31
                 jmp     isr_comm_stub
 
 ;   IRQ handlers
-irq0:           cli
-                push    byte 0
+irq0:           push    byte 0
                 push    byte 32
                 jmp     irq_comm_stub
 
-irq1:           cli
-                push    byte 1
+irq1:           push    byte 1
                 push    byte 33
                 jmp     irq_comm_stub
 
-irq2:           cli
-                push    byte 2
+irq2:           push    byte 2
                 push    byte 34
                 jmp     irq_comm_stub
 
-irq3:           cli
-                push    byte 3
+irq3:           push    byte 3
                 push    byte 35
                 jmp     irq_comm_stub
 
-irq4:           cli
-                push    byte 4
+irq4:           push    byte 4
                 push    byte 36
                 jmp     irq_comm_stub
 
-irq5:           cli
-                push    byte 5
+irq5:           push    byte 5
                 push    byte 37
                 jmp     irq_comm_stub
 
-irq6:           cli
-                push    byte 6
+irq6:           push    byte 6
                 push    byte 38
                 jmp     irq_comm_stub
 
-irq7:           cli
-                push    byte 7
+irq7:           push    byte 7
                 push    byte 39
                 jmp     irq_comm_stub
 
-irq8:           cli
-                push    byte 8
+irq8:           push    byte 8
                 push    byte 40
                 jmp     irq_comm_stub
 
-irq9:           cli
-                push    byte 9
+irq9:           push    byte 9
                 push    byte 41
                 jmp     irq_comm_stub
 
-irq10:          cli
-                push    byte 10
+irq10:          push    byte 10
                 push    byte 42
                 jmp     irq_comm_stub
 
-irq11:          cli
-                push    byte 11
+irq11:          push    byte 11
                 push    byte 43
                 jmp     irq_comm_stub
 
-irq12:          cli
-                push    byte 12
+irq12:          push    byte 12
                 push    byte 44
                 jmp     irq_comm_stub
 
-irq13:          cli
-                push    byte 13
+irq13:          push    byte 13
                 push    byte 45
                 jmp     irq_comm_stub
 
-irq14:          cli
-                push    byte 14
+irq14:          push    byte 14
                 push    byte 46
                 jmp     irq_comm_stub
 
-irq15:          cli
-                push    byte 15
+irq15:          push    byte 15
                 push    byte 47
                 jmp     irq_comm_stub

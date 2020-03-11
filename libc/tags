@@ -1,0 +1,31 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/3fdf28bc/
+LIBC_FILE_H	file.h	/^#define LIBC_FILE_H$/;"	d
+LIBC_FUNCTION_H	function.h	/^#define LIBC_FUNCTION_H$/;"	d
+LIBC_MEM_H	mem.h	/^#define LIBC_MEM_H$/;"	d
+LIBC_STRING_H	string.h	/^#define LIBC_STRING_H$/;"	d
+MAX_FILE_SIZE	file.h	/^#define MAX_FILE_SIZE /;"	d
+MEM_START	mem.c	/^#define MEM_START /;"	d	file:
+PAGE_SIZE	mem.c	/^#define PAGE_SIZE /;"	d	file:
+UNUSED	function.h	/^#define UNUSED(/;"	d
+alloc_page	mem.c	/^static uint32_t alloc_page()$/;"	f	typeref:typename:uint32_t	file:
+append	string.c	/^void append(char *s, char ch)$/;"	f	typeref:typename:void
+backspace	string.c	/^void backspace(char *s)$/;"	f	typeref:typename:void
+free	mem.c	/^void free(size_t size)$/;"	f	typeref:typename:void
+free_mem_ptr	mem.c	/^uint32_t free_mem_ptr = MEM_START;$/;"	v	typeref:typename:uint32_t
+free_page	mem.c	/^static void free_page()$/;"	f	typeref:typename:void	file:
+hex_to_ascii	string.c	/^void hex_to_ascii(uint32_t n, char *str)$/;"	f	typeref:typename:void
+int_to_ascii	string.c	/^void int_to_ascii(int n, char *str)$/;"	f	typeref:typename:void
+kmalloc	mem.c	/^uint32_t kmalloc(size_t size)$/;"	f	typeref:typename:uint32_t
+mem_cpy	mem.c	/^void mem_cpy(void *src, const void *dst, unsigned nbytes)$/;"	f	typeref:typename:void
+mem_set	mem.c	/^void mem_set(void *dst, int val, unsigned nbytes)$/;"	f	typeref:typename:void
+read_file	file.c	/^int read_file(int fd, char *buf)$/;"	f	typeref:typename:int
+str_cmp	string.c	/^int str_cmp(char *s1, char *s2)$/;"	f	typeref:typename:int
+str_cmp_n	string.c	/^int str_cmp_n(char *s1, char *s2, int n)$/;"	f	typeref:typename:int
+str_len	string.c	/^int str_len(char *s)$/;"	f	typeref:typename:int
+str_rev	string.c	/^void str_rev(char *s)$/;"	f	typeref:typename:void

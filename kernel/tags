@@ -1,0 +1,12 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/3fdf28bc/
+KERNEL_KERNEL_H	kernel.h	/^#define KERNEL_KERNEL_H$/;"	d
+KERNEL_SHELL_H	shell.h	/^#define KERNEL_SHELL_H$/;"	d
+kmain	kernel.c	/^void kmain(void)$/;"	f	typeref:typename:void
+shell_exec	shell.c	/^void shell_exec(char *cmd)$/;"	f	typeref:typename:void
+user_input	kernel.c	/^void user_input(char *input)$/;"	f	typeref:typename:void

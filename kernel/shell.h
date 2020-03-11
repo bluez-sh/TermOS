@@ -5,6 +5,7 @@
 #include "../libc/string.h"
 #include "../drivers/screen.h"
 
+void shell_run();
 void shell_exec(char* cmd);
 
 #endif

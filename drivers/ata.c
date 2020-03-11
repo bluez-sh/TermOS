@@ -99,12 +99,20 @@ void ata_clear_buffer()
 
 int ata_drive_select(int primary, int master)
 {
+    char num[4];
     if (!drive_present[primary][master])
         return -1;
     to_select  = (master != is_master);
     is_primary = primary;
     is_master  = master;
     base = primary ? ATA_PRIMARY_BASE : ATA_SECONDARY_BASE;
+
+    kprint("\n[+] ATA: Selected drive: Primary? ");
+    int_to_ascii(is_primary, num);
+    kprint(num);
+    kprint(" Master? ");
+    int_to_ascii(is_primary, num);
+    kprint(num);
     return 0;
 }
 

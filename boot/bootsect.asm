@@ -1,9 +1,9 @@
             [org 0x7c00]
 
-kernel_offset_c     equ     0x1000
+kernel_base_c     equ     0x0800
 
 start:      mov     [boot_drive_c], dl 
-            mov     bp, 0x9000
+            mov     bp, 0x3000
             mov     sp, bp
 
             mov     bx, msg_rm_c
@@ -11,8 +11,7 @@ start:      mov     [boot_drive_c], dl
             call    print_nl
 
             call    ld_kernel
-            call    switch_to_pm
-            jmp     $
+            jmp     switch_to_pm
 
 %include    "boot/print.asm"
 %include    "boot/print_hex.asm"
@@ -24,14 +23,22 @@ start:      mov     [boot_drive_c], dl
 
             [bits 16]
 
-ld_kernel:  mov     bx, msg_ld_kernel_c 
+ld_kernel:  pusha 
+            mov     bx, msg_ld_kernel_c 
             call    print
             call    print_nl
 
-            mov     bx, kernel_offset_c
-            mov     dh, 50
+            push    es
+            mov     ax, kernel_base_c
+            mov     es, ax
+
+            mov     bx, 0x0000
+            mov     dh, 60
             mov     dl, [boot_drive_c]
             call    disk_load
+
+            pop     es
+            popa
             ret
 
 
@@ -39,7 +46,7 @@ ld_kernel:  mov     bx, msg_ld_kernel_c
 
 begin_pm:   mov     ebx, msg_pm_c
             call    print_pm
-            call    kernel_offset_c
+            jmp     0x8000
 
 boot_drive_c        db      0
 msg_rm_c            db      "In 16-bit real mode", 0

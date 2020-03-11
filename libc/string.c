@@ -70,6 +70,15 @@ int str_cmp_n(char *s1, char *s2, int n)
     return s1[i] - s2[i];
 }
 
+int str_cpy(char *dst, char *src)
+{
+    int i;
+    for (i = 0; src[i] != '\0'; i++)
+        dst[i] = src[i];
+    dst[i] = '\0';
+    return i;
+}
+
 void append(char *s, char ch)
 {
     int len = str_len(s);

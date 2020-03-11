@@ -1,0 +1,187 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/a3c87ab5/
+CPU_IDT_H	idt.h	/^#define CPU_IDT_H$/;"	d
+CPU_ISR_H	isr.h	/^#define CPU_ISR_H$/;"	d
+CPU_TIMER_H	timer.h	/^#define CPU_TIMER_H$/;"	d
+CPU_TYPES_H	types.h	/^#define CPU_TYPES_H$/;"	d
+DRIVERS_PORTS_H	ports.h	/^#define DRIVERS_PORTS_H$/;"	d
+EOI	isr.c	/^#define EOI /;"	d	file:
+IDT_ENTRIES	idt.h	/^#define IDT_ENTRIES /;"	d
+IRQ0	isr.h	/^#define IRQ0 /;"	d
+IRQ1	isr.h	/^#define IRQ1 /;"	d
+IRQ10	isr.h	/^#define IRQ10 /;"	d
+IRQ11	isr.h	/^#define IRQ11 /;"	d
+IRQ12	isr.h	/^#define IRQ12 /;"	d
+IRQ13	isr.h	/^#define IRQ13 /;"	d
+IRQ14	isr.h	/^#define IRQ14 /;"	d
+IRQ15	isr.h	/^#define IRQ15 /;"	d
+IRQ2	isr.h	/^#define IRQ2 /;"	d
+IRQ3	isr.h	/^#define IRQ3 /;"	d
+IRQ4	isr.h	/^#define IRQ4 /;"	d
+IRQ5	isr.h	/^#define IRQ5 /;"	d
+IRQ6	isr.h	/^#define IRQ6 /;"	d
+IRQ7	isr.h	/^#define IRQ7 /;"	d
+IRQ8	isr.h	/^#define IRQ8 /;"	d
+IRQ9	isr.h	/^#define IRQ9 /;"	d
+KERNEL_CS	idt.h	/^#define KERNEL_CS /;"	d
+PIC1_CMD	isr.c	/^#define PIC1_CMD /;"	d	file:
+PIC1_DAT	isr.c	/^#define PIC1_DAT /;"	d	file:
+PIC2_CMD	isr.c	/^#define PIC2_CMD /;"	d	file:
+PIC2_DAT	isr.c	/^#define PIC2_DAT /;"	d	file:
+__anon0fa3d6bc0108	idt.h	/^typedef struct {$/;"	s
+__anon0fa3d6bc0208	idt.h	/^typedef struct {$/;"	s
+__anon0fac07e90108	isr.h	/^typedef struct {$/;"	s
+addr_high	idt.h	/^    uint16_t addr_high;$/;"	m	struct:__anon0fa3d6bc0108	typeref:typename:uint16_t
+addr_low	idt.h	/^    uint16_t addr_low;$/;"	m	struct:__anon0fa3d6bc0108	typeref:typename:uint16_t
+base	idt.h	/^    uint32_t base;$/;"	m	struct:__anon0fa3d6bc0208	typeref:typename:uint32_t
+cs	isr.h	/^    uint32_t eip, cs, eflags, esp, ss;                      \/\/Pushed automatically by processo/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+ds	isr.h	/^    uint32_t ds;                                            \/\/Data Segment selector$/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+eax	isr.h	/^    uint32_t edi, esi, ebp, unused_esp, ebx, edx, ecx, eax; \/\/Pushed by pusha$/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+ebp	isr.h	/^    uint32_t edi, esi, ebp, unused_esp, ebx, edx, ecx, eax; \/\/Pushed by pusha$/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+ebx	isr.h	/^    uint32_t edi, esi, ebp, unused_esp, ebx, edx, ecx, eax; \/\/Pushed by pusha$/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+ecx	isr.h	/^    uint32_t edi, esi, ebp, unused_esp, ebx, edx, ecx, eax; \/\/Pushed by pusha$/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+edi	isr.h	/^    uint32_t edi, esi, ebp, unused_esp, ebx, edx, ecx, eax; \/\/Pushed by pusha$/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+edx	isr.h	/^    uint32_t edi, esi, ebp, unused_esp, ebx, edx, ecx, eax; \/\/Pushed by pusha$/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+eflags	isr.h	/^    uint32_t eip, cs, eflags, esp, ss;                      \/\/Pushed automatically by processo/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+eip	isr.h	/^    uint32_t eip, cs, eflags, esp, ss;                      \/\/Pushed automatically by processo/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+err_code	isr.h	/^    uint32_t int_no, err_code;                              \/\/Applicable on interrupt$/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+esi	isr.h	/^    uint32_t edi, esi, ebp, unused_esp, ebx, edx, ecx, eax; \/\/Pushed by pusha$/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+esp	isr.h	/^    uint32_t eip, cs, eflags, esp, ss;                      \/\/Pushed automatically by processo/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+exception_msgs	isr.c	/^const char *exception_msgs[] = {$/;"	v	typeref:typename:const char * []
+flags	idt.h	/^    uint8_t flags;$/;"	m	struct:__anon0fa3d6bc0108	typeref:typename:uint8_t
+global	interrupt.asm	/^global irq0$/;"	l
+global	interrupt.asm	/^global irq1$/;"	l
+global	interrupt.asm	/^global irq10$/;"	l
+global	interrupt.asm	/^global irq11$/;"	l
+global	interrupt.asm	/^global irq12$/;"	l
+global	interrupt.asm	/^global irq13$/;"	l
+global	interrupt.asm	/^global irq14$/;"	l
+global	interrupt.asm	/^global irq15$/;"	l
+global	interrupt.asm	/^global irq2$/;"	l
+global	interrupt.asm	/^global irq3$/;"	l
+global	interrupt.asm	/^global irq4$/;"	l
+global	interrupt.asm	/^global irq5$/;"	l
+global	interrupt.asm	/^global irq6$/;"	l
+global	interrupt.asm	/^global irq7$/;"	l
+global	interrupt.asm	/^global irq8$/;"	l
+global	interrupt.asm	/^global irq9$/;"	l
+global	interrupt.asm	/^global isr0$/;"	l
+global	interrupt.asm	/^global isr1$/;"	l
+global	interrupt.asm	/^global isr10$/;"	l
+global	interrupt.asm	/^global isr11$/;"	l
+global	interrupt.asm	/^global isr12$/;"	l
+global	interrupt.asm	/^global isr13$/;"	l
+global	interrupt.asm	/^global isr14$/;"	l
+global	interrupt.asm	/^global isr15$/;"	l
+global	interrupt.asm	/^global isr16$/;"	l
+global	interrupt.asm	/^global isr17$/;"	l
+global	interrupt.asm	/^global isr18$/;"	l
+global	interrupt.asm	/^global isr19$/;"	l
+global	interrupt.asm	/^global isr2$/;"	l
+global	interrupt.asm	/^global isr20$/;"	l
+global	interrupt.asm	/^global isr21$/;"	l
+global	interrupt.asm	/^global isr22$/;"	l
+global	interrupt.asm	/^global isr23$/;"	l
+global	interrupt.asm	/^global isr24$/;"	l
+global	interrupt.asm	/^global isr25$/;"	l
+global	interrupt.asm	/^global isr26$/;"	l
+global	interrupt.asm	/^global isr27$/;"	l
+global	interrupt.asm	/^global isr28$/;"	l
+global	interrupt.asm	/^global isr29$/;"	l
+global	interrupt.asm	/^global isr3$/;"	l
+global	interrupt.asm	/^global isr30$/;"	l
+global	interrupt.asm	/^global isr31$/;"	l
+global	interrupt.asm	/^global isr4$/;"	l
+global	interrupt.asm	/^global isr5$/;"	l
+global	interrupt.asm	/^global isr6$/;"	l
+global	interrupt.asm	/^global isr7$/;"	l
+global	interrupt.asm	/^global isr8$/;"	l
+global	interrupt.asm	/^global isr9$/;"	l
+high_16	types.h	/^#define high_16(/;"	d
+idt	idt.h	/^idt_gate_t idt[IDT_ENTRIES];$/;"	v	typeref:typename:idt_gate_t[]
+idt_gate_t	idt.h	/^} __attribute__((packed)) idt_gate_t;$/;"	t	typeref:struct:__anon0fa3d6bc0108
+idt_reg	idt.h	/^idt_register_t idt_reg;$/;"	v	typeref:typename:idt_register_t
+idt_register_t	idt.h	/^} __attribute__((packed)) idt_register_t;$/;"	t	typeref:struct:__anon0fa3d6bc0208
+init_timer	timer.c	/^void init_timer(uint32_t freq)$/;"	f	typeref:typename:void
+int_handlers	isr.c	/^isr_t int_handlers[256];$/;"	v	typeref:typename:isr_t[256]
+int_no	isr.h	/^    uint32_t int_no, err_code;                              \/\/Applicable on interrupt$/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+irq0	interrupt.asm	/^irq0:           push    byte 0$/;"	l
+irq1	interrupt.asm	/^irq1:           push    byte 1$/;"	l
+irq10	interrupt.asm	/^irq10:          push    byte 10$/;"	l
+irq11	interrupt.asm	/^irq11:          push    byte 11$/;"	l
+irq12	interrupt.asm	/^irq12:          push    byte 12$/;"	l
+irq13	interrupt.asm	/^irq13:          push    byte 13$/;"	l
+irq14	interrupt.asm	/^irq14:          push    byte 14$/;"	l
+irq15	interrupt.asm	/^irq15:          push    byte 15$/;"	l
+irq2	interrupt.asm	/^irq2:           push    byte 2$/;"	l
+irq3	interrupt.asm	/^irq3:           push    byte 3$/;"	l
+irq4	interrupt.asm	/^irq4:           push    byte 4$/;"	l
+irq5	interrupt.asm	/^irq5:           push    byte 5$/;"	l
+irq6	interrupt.asm	/^irq6:           push    byte 6$/;"	l
+irq7	interrupt.asm	/^irq7:           push    byte 7$/;"	l
+irq8	interrupt.asm	/^irq8:           push    byte 8$/;"	l
+irq9	interrupt.asm	/^irq9:           push    byte 9$/;"	l
+irq_comm_stub	interrupt.asm	/^irq_comm_stub:  pusha$/;"	l
+irq_handler	isr.c	/^void irq_handler(registers_t *r)$/;"	f	typeref:typename:void
+irq_install	isr.c	/^void irq_install()$/;"	f	typeref:typename:void
+isr0	interrupt.asm	/^isr0:           push    byte 0$/;"	l
+isr1	interrupt.asm	/^isr1:           push    byte 0$/;"	l
+isr10	interrupt.asm	/^isr10:          push    byte 10$/;"	l
+isr11	interrupt.asm	/^isr11:          push    byte 11$/;"	l
+isr12	interrupt.asm	/^isr12:          push    byte 12$/;"	l
+isr13	interrupt.asm	/^isr13:          push    byte 13$/;"	l
+isr14	interrupt.asm	/^isr14:          push    byte 14$/;"	l
+isr15	interrupt.asm	/^isr15:          push    byte 0$/;"	l
+isr16	interrupt.asm	/^isr16:          push    byte 0$/;"	l
+isr17	interrupt.asm	/^isr17:          push    byte 0$/;"	l
+isr18	interrupt.asm	/^isr18:          push    byte 0$/;"	l
+isr19	interrupt.asm	/^isr19:          push    byte 0$/;"	l
+isr2	interrupt.asm	/^isr2:           push    byte 0$/;"	l
+isr20	interrupt.asm	/^isr20:          push    byte 0$/;"	l
+isr21	interrupt.asm	/^isr21:          push    byte 0$/;"	l
+isr22	interrupt.asm	/^isr22:          push    byte 0$/;"	l
+isr23	interrupt.asm	/^isr23:          push    byte 0$/;"	l
+isr24	interrupt.asm	/^isr24:          push    byte 0$/;"	l
+isr25	interrupt.asm	/^isr25:          push    byte 0$/;"	l
+isr26	interrupt.asm	/^isr26:          push    byte 0$/;"	l
+isr27	interrupt.asm	/^isr27:          push    byte 0$/;"	l
+isr28	interrupt.asm	/^isr28:          push    byte 0$/;"	l
+isr29	interrupt.asm	/^isr29:          push    byte 0$/;"	l
+isr3	interrupt.asm	/^isr3:           push    byte 0$/;"	l
+isr30	interrupt.asm	/^isr30:          push    byte 0$/;"	l
+isr31	interrupt.asm	/^isr31:          push    byte 0$/;"	l
+isr4	interrupt.asm	/^isr4:           push    byte 0$/;"	l
+isr5	interrupt.asm	/^isr5:           push    byte 0$/;"	l
+isr6	interrupt.asm	/^isr6:           push    byte 0$/;"	l
+isr7	interrupt.asm	/^isr7:           push    byte 0$/;"	l
+isr8	interrupt.asm	/^isr8:           push    byte 8$/;"	l
+isr9	interrupt.asm	/^isr9:           push    byte 0$/;"	l
+isr_comm_stub	interrupt.asm	/^isr_comm_stub:  pusha$/;"	l
+isr_handler	isr.c	/^void isr_handler(registers_t *r)$/;"	f	typeref:typename:void
+isr_install	isr.c	/^void isr_install()$/;"	f	typeref:typename:void
+isr_t	isr.h	/^typedef void (*isr_t)(registers_t*);$/;"	t	typeref:typename:void (*)(registers_t *)
+limit	idt.h	/^    uint16_t limit;$/;"	m	struct:__anon0fa3d6bc0208	typeref:typename:uint16_t
+low_16	types.h	/^#define low_16(/;"	d
+mov	interrupt.asm	/^                mov     ds, ax$/;"	d
+mov	interrupt.asm	/^                mov     ds, bx$/;"	d
+port_r16	ports.c	/^unsigned short port_r16(unsigned short port)$/;"	f	typeref:typename:unsigned short
+port_r8	ports.c	/^unsigned char port_r8(unsigned short port)$/;"	f	typeref:typename:unsigned char
+port_w16	ports.c	/^void port_w16(unsigned short port, unsigned short data)$/;"	f	typeref:typename:void
+port_w8	ports.c	/^void port_w8(unsigned short port, unsigned char data)$/;"	f	typeref:typename:void
+register_int_hdlr	isr.c	/^void register_int_hdlr(uint8_t n, isr_t hdlr)$/;"	f	typeref:typename:void
+registers_t	isr.h	/^} registers_t;$/;"	t	typeref:struct:__anon0fac07e90108
+seg_sel	idt.h	/^    uint16_t seg_sel;$/;"	m	struct:__anon0fa3d6bc0108	typeref:typename:uint16_t
+set_idt	idt.c	/^void set_idt()$/;"	f	typeref:typename:void
+set_idt_gate	idt.c	/^void set_idt_gate(int n, uint32_t handler)$/;"	f	typeref:typename:void
+ss	isr.h	/^    uint32_t eip, cs, eflags, esp, ss;                      \/\/Pushed automatically by processo/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+tick	timer.c	/^volatile uint32_t tick = 0;$/;"	v	typeref:typename:volatile uint32_t
+timer_callback	timer.c	/^static void timer_callback(registers_t *regs)$/;"	f	typeref:typename:void	file:
+timer_get_ticks	timer.c	/^uint32_t timer_get_ticks()$/;"	f	typeref:typename:uint32_t
+unused_esp	isr.h	/^    uint32_t edi, esi, ebp, unused_esp, ebx, edx, ecx, eax; \/\/Pushed by pusha$/;"	m	struct:__anon0fac07e90108	typeref:typename:uint32_t
+zero	idt.h	/^    uint8_t zero;$/;"	m	struct:__anon0fa3d6bc0108	typeref:typename:uint8_t

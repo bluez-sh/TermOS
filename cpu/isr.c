@@ -122,7 +122,7 @@ void isr_install()
 
 void isr_handler(registers_t *r)
 {
-    char int_str[3];
+    char int_str[4];
     kprint("Received Interrupt: ");
     int_to_ascii(r->int_no, int_str);
     kprint(int_str);
