@@ -4,7 +4,7 @@
 #include "../libc/string.h"
 
 #define NB_BLOCKS   (DISK_SIZE / BLOCK_SIZE)
-#define NB_IBLOCKS  (NB_BLOCKS / 5)
+#define NB_IBLOCKS  (NB_BLOCKS / 10)
 #define NB_INODES   (NB_IBLOCKS * INODES_PER_BLOCK)
 
 static struct Inode inode_table[NB_INODES];

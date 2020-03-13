@@ -27,11 +27,11 @@ void shell_exec(char *cmd)
 {
     if (!str_cmp(cmd, "poweroff")) {
         kprint("[+] Shutting down...\n");
-        delay(0.6);
+        delay(600);
         port_w16(0x604, 0x2000);    // qemu s/w shutdown
     } else if (!str_cmp(cmd, "clear")) {
         clear_screen();
-        kprint("SwaOS v1.0\n");
+        kprint("TermOS v1.0\n");
     } else if (!str_cmp(cmd, "getpage")) {
         char page_addr[16] = "";
         uint32_t page = kmalloc(10);
@@ -126,6 +126,18 @@ void shell_exec(char *cmd)
         int fd = ascii_to_int(cmd);
         if (sfs_remove(fd) < 0)
             kprint("\nERR: Cannot remove file");
+    } else if (!str_cmp_n(cmd, "fstat ", 6)) {
+        cmd += 6;
+        int fd = ascii_to_int(cmd);
+        int ret = sfs_stat(fd);
+        if (ret < 0) {
+            kprint("\nERR: File does not exist");
+        } else {
+            kprint("\nFile size: ");
+            char num[8];
+            int_to_ascii(ret, num);
+            kprint(num);
+        }
     } else if (!str_cmp(cmd, "help")) {
         kprint("Commands: ");
         int i;

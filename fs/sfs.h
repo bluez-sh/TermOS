@@ -6,8 +6,8 @@
 
 #define SFS_MAGIC   0xf0f03410
 
-// disk size = 4K
-#define DISK_SIZE   4096
+// disk size = 1M
+#define DISK_SIZE   1048576
 #define BLOCK_SIZE  512
 
 struct SuperBlock {
@@ -15,6 +15,7 @@ struct SuperBlock {
     uint32_t nb_blocks;
     uint32_t nb_iblocks;
     uint32_t nb_inodes;
+    uint8_t  unused[BLOCK_SIZE-16];
 } super_block;
 
 #define POINTERS_PER_INODE 5

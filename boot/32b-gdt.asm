@@ -20,7 +20,7 @@ gdt_data:       dw      0xffff
 gdt_end:
 
 
-gdt_descriptor: dw      gdt_end - gdt_start - 1
+gdt_descriptor: dw      gdt_end - gdt_start ;- 1
                 dd      gdt_start
 
 code_seg_c      equ     gdt_code - gdt_start

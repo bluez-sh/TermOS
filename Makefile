@@ -4,7 +4,8 @@ OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o}
 
 CC = /usr/local/i386-elf-gcc/bin/i386-elf-gcc 
 GDB = /usr/local/i386-elf-gcc/bin/i386-elf-gdb
-CFLAGS = -g -m32 -ffreestanding -Wall -Wextra -fno-exceptions -fno-pic
+CFLAGS = -g -m32 -ffreestanding -Wall -Wextra -fno-exceptions -fno-pic \
+-mno-sse -mno-sse2 -mno-mmx -mno-80387 -mno-red-zone
 
 os-image.bin: boot/bootsect.bin kernel.bin
 	cat $^ > $@
@@ -16,7 +17,7 @@ kernel.elf: boot/kernel_entry.o ${OBJ}
 	i386-elf-ld -o $@ -Ttext 0x8000 $^
 
 run: os-image.bin
-	qemu-system-i386 -m 512M -no-shutdown -no-reboot -boot menu=on -fda $< -hda hdd.img
+	qemu-system-i386 -m 512M -boot menu=on -fda $< -hda hdd.img
 
 debug: os-image.bin kernel.elf
 	qemu-system-i386 -s -no-shutdown -no-reboot -d int -boot menu=on -fda $< -hda hdd.img &

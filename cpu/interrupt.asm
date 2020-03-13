@@ -1,7 +1,7 @@
 [extern isr_handler]
 [extern irq_handler]
 
-isr_comm_stub:  pusha               ; push all GPRs
+isr_comm_stub:  pushad              ; push all GPRs
                 mov     ax, ds
                 push    eax         ; push ds
                 mov     ax, 0x10    ; load kernel's ds
@@ -20,11 +20,11 @@ isr_comm_stub:  pusha               ; push all GPRs
                 mov     es, ax
                 mov     fs, ax
                 mov     gs, ax
-                popa                ; pop all GPRs
+                popad               ; pop all GPRs
                 add     esp, 8      ; clean err_code and int_no
                 iret
 
-irq_comm_stub:  pusha
+irq_comm_stub:  pushad
                 mov     ax, ds
                 push    eax
                 mov     ax, 0x10
@@ -43,7 +43,7 @@ irq_comm_stub:  pusha
                 mov     es, bx
                 mov     fs, bx
                 mov     gs, bx
-                popa
+                popad
                 add     esp, 8
                 iret
 
@@ -162,8 +162,7 @@ isr16:          push    byte 0
                 push    byte 16
                 jmp     isr_comm_stub
 
-isr17:          push    byte 0
-                push    byte 17
+isr17:          push    byte 17
                 jmp     isr_comm_stub
 
 isr18:          push    byte 0
@@ -214,8 +213,7 @@ isr29:          push    byte 0
                 push    byte 29
                 jmp     isr_comm_stub
 
-isr30:          push    byte 0
-                push    byte 30
+isr30:          push    byte 30
                 jmp     isr_comm_stub
 
 isr31:          push    byte 0

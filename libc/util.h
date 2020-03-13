@@ -3,6 +3,6 @@
 
 #include "../cpu/types.h"
 
-void delay(double sec);
+void delay(uint32_t ms);
 
 #endif

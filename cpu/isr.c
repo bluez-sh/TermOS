@@ -6,6 +6,8 @@
 #include "ports.h"
 #include "timer.h"
 
+#include "../libc/mem.h"
+
 #define PIC1_CMD 0x20
 #define PIC1_DAT 0x21
 #define PIC2_CMD 0xA0
@@ -53,6 +55,9 @@ const char *exception_msgs[] = {
 
 void isr_install()
 {
+    mem_set(idt, 0, IDT_ENTRIES * sizeof(idt_gate_t));
+    mem_set(int_handlers, 0, IDT_ENTRIES * sizeof(isr_t));
+
     set_idt_gate(0, (uint32_t)(long)isr0);
     set_idt_gate(1, (uint32_t)(long)isr1);
     set_idt_gate(2, (uint32_t)(long)isr2);
@@ -123,12 +128,14 @@ void isr_install()
 void isr_handler(registers_t *r)
 {
     char int_str[4];
-    kprint("Received Interrupt: ");
+    kprint("\nReceived Interrupt: ");
     int_to_ascii(r->int_no, int_str);
     kprint(int_str);
     kprint("\n");
     kprint(exception_msgs[r->int_no]);
     kprint("\n");
+    __asm__ __volatile__ ("cli");
+    __asm__ __volatile__ ("hlt");
 }
 
 void register_int_hdlr(uint8_t n, isr_t hdlr)

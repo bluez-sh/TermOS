@@ -46,7 +46,7 @@ ld_kernel:  pusha
 
 begin_pm:   mov     ebx, msg_pm_c
             call    print_pm
-            jmp     0x8000
+            jmp     code_seg_c:0x8000
 
 boot_drive_c        db      0
 msg_rm_c            db      "In 16-bit real mode", 0

@@ -17,9 +17,10 @@ void kmain(void)
         if (ata_drive_select(i%2, i/2) >= 0)
             break;
 
-    delay(1.5);
+    delay(1500);
+
     clear_screen();
-    kprint("\nWelcome to SwaOS!\n");
+    kprint("\nWelcome to TermOS!\n");
     kprint("\n>");
 
     shell_run();
