@@ -2,5 +2,9 @@
 *.bin
 *.elf
 *.bak
+cpu/tags
 drivers/tags
+fs/tags
+kernel/tags
+libc/tags
 tags
