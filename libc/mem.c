@@ -43,6 +43,13 @@ uint32_t kmalloc(size_t size)
     return ret;
 }
 
+uint32_t kmallocz(size_t size)
+{
+    char *ptr = (char*) kmalloc(size);
+    mem_set(ptr, 0, size);
+    return (uint32_t) ptr;
+}
+
 void free(size_t size)
 {
     uint32_t n = size/PAGE_SIZE + 1;

@@ -199,3 +199,10 @@ void ata_write_sector(uint32_t addr, uint8_t *buf)
     ata_pio28(addr, 1, 0);
     ata_flush();
 }
+
+void ata_clear_sector(uint32_t addr)
+{
+    ata_clear_buffer();
+    ata_pio28(addr, 1, 0);
+    ata_flush();
+}

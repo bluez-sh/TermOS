@@ -4,6 +4,7 @@
 #include "shell.h"
 #include "../drivers/ata.h"
 #include "../libc/util.h"
+#include "../fs/sfs.h"
 
 void kmain(void)
 {
@@ -18,6 +19,10 @@ void kmain(void)
             break;
 
     delay(1500);
+
+    if (sfs_mount() < 0) {
+        kprint("[!] SFS: Error mounting drive");
+    }
 
     clear_screen();
     kprint("\nWelcome to TermOS!\n");

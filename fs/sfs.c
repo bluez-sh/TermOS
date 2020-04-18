@@ -28,6 +28,18 @@ static void set_free_blocks(struct Inode *inode, int used)
     }
 }
 
+static int alloc_free_block()
+{
+    for (int i = NB_IBLOCKS + 1; i < NB_BLOCKS; i++) {
+        if (!free_blocks[i]) {
+            free_blocks[i] = 1;
+            ata_clear_sector(i);
+            return i;
+        }
+    }
+    return -1;
+}
+
 static void load_inode(uint32_t inum, struct Inode *inode)
 {
     union Block block;
@@ -141,6 +153,7 @@ int sfs_create()
 {
     for (unsigned i = 0; i < super_block.nb_inodes; i++)
         if (!inode_table[i].valid) {
+            load_inode(i, &inode_table[i]);
             inode_table[i].valid = 1;
             store_inode(i, &inode_table[i]);
             return i;
@@ -153,7 +166,7 @@ int sfs_remove(uint32_t inum)
     if (inum > super_block.nb_inodes)
         return -1;
     set_free_blocks(&inode_table[inum], 0);
-    mem_set(&inode_table[inum], 0, sizeof(struct Inode));
+    mem_set(&inode_table[inum], 0, sizeof(inode_table[inum]));
     store_inode(inum, &inode_table[inum]);
     return 0;
 }
@@ -175,6 +188,12 @@ int sfs_read(uint32_t inum, char *data, uint32_t len, uint32_t offset)
     struct Inode inode = inode_table[inum];
     if (!inode.valid)
         return -1;
+
+    if (offset > (unsigned) sfs_stat(inum))
+        return -1;
+
+    if (sfs_stat(inum) == 0)
+        return 0;
 
     union Block block;
     uint32_t next_block   = offset / BLOCK_SIZE;
@@ -199,12 +218,21 @@ int sfs_read(uint32_t inum, char *data, uint32_t len, uint32_t offset)
     union Block indirect;
     ata_read_sector(inode.indirect, (uint8_t*)&indirect.data);
 
+    if (bytes_read) {
+        if (!indirect.ptr[next_block - POINTERS_PER_INODE])
+            goto end;
+        ata_read_sector(indirect.ptr[next_block - POINTERS_PER_INODE],
+                (uint8_t*)&block.data);
+        next_block++;
+        offset_into = 0;
+    }
+
     while (bytes_read != len) {
         if (offset_into >= BLOCK_SIZE || !bytes_read) {
             if (next_block >= POINTERS_PER_INODE + POINTERS_PER_BLOCK)
                 break;
             if (bytes_read) offset_into = 0;
-            if (!indirect.ptr[next_block])
+            if (!indirect.ptr[next_block - POINTERS_PER_INODE])
                 goto end;
             ata_read_sector(indirect.ptr[next_block - POINTERS_PER_INODE],
                     (uint8_t*)&block.data);
@@ -215,4 +243,96 @@ int sfs_read(uint32_t inum, char *data, uint32_t len, uint32_t offset)
 
 end:
     return bytes_read;
+}
+
+int sfs_write(uint32_t inum, char* data, uint32_t len, uint32_t offset)
+{
+    if (inum > super_block.nb_inodes || !data)
+        return -1;
+
+    struct Inode inode = inode_table[inum];
+    if (!inode.valid)
+        return -1;
+
+    if (offset > (unsigned) sfs_stat(inum))
+        return -1;
+
+    union Block block;
+    uint32_t next_block   = offset / BLOCK_SIZE;
+    uint32_t offset_into  = offset % BLOCK_SIZE;
+
+    unsigned bytes_written = 0;
+    while (bytes_written != len) {
+        if (offset_into >= BLOCK_SIZE || !bytes_written) {
+            if (bytes_written) {
+                offset_into = 0;
+                ata_write_sector(inode.direct[next_block-1], (uint8_t*)&block.data);
+            }
+            if (next_block >= POINTERS_PER_INODE)
+                break;
+            if (!inode.direct[next_block])
+                inode.direct[next_block] = alloc_free_block();
+
+            ata_read_sector(inode.direct[next_block], (uint8_t*)&block.data);
+            next_block++;
+        }
+        block.data[offset_into++] = data[bytes_written++];
+    }
+
+    if (bytes_written == len) {
+        ata_write_sector(inode.direct[next_block-1], (uint8_t*)&block.data);
+        goto end;
+    }
+
+    union Block indirect;
+    if (inode.indirect) {
+        ata_read_sector(inode.indirect, (uint8_t*)&indirect.data);
+    } else {
+        inode.indirect = alloc_free_block();
+        mem_set(&indirect, 0, sizeof(indirect));
+    }
+
+    if (bytes_written) {
+        if (!indirect.ptr[next_block - POINTERS_PER_INODE])
+            indirect.ptr[next_block - POINTERS_PER_INODE] = alloc_free_block();
+        next_block++;
+        offset_into = 0;
+    }
+
+    while (bytes_written != len) {
+        if (offset_into >= BLOCK_SIZE || !bytes_written) {
+            if (bytes_written) {
+                offset_into = 0;
+                ata_write_sector(
+                        indirect.ptr[next_block - POINTERS_PER_INODE - 1],
+                        (uint8_t*)&block.data);
+            }
+            if (next_block >= POINTERS_PER_INODE + POINTERS_PER_BLOCK)
+                break;
+            if (!indirect.ptr[next_block - POINTERS_PER_INODE])
+                indirect.ptr[next_block - POINTERS_PER_INODE] = alloc_free_block();
+
+            ata_read_sector(indirect.ptr[next_block - POINTERS_PER_INODE],
+                    (uint8_t*)&block.data);
+            next_block++;
+        }
+        block.data[offset_into++] = data[bytes_written++];
+    }
+
+    if (bytes_written == len)
+        ata_write_sector(indirect.ptr[next_block - POINTERS_PER_INODE - 1],
+                (uint8_t*)&block.data);
+
+    ata_write_sector(inode.indirect, (uint8_t*)&indirect);
+
+end:
+    // update inode size
+    if (offset + bytes_written > inode.size)
+        inode.size = offset + bytes_written;
+
+    // update inode table entry
+    inode_table[inum] = inode;
+
+    store_inode(inum, &inode);
+    return bytes_written;
 }

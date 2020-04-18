@@ -29,5 +29,6 @@ void ata_flush();
 
 void ata_read_sector(uint32_t addr, uint8_t* buf);
 void ata_write_sector(uint32_t addr, uint8_t* buf);
+void ata_clear_sector(uint32_t addr);
 
 #endif
