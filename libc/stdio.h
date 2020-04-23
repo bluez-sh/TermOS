@@ -4,5 +4,6 @@
 void copy_to_stdin(char *input);
 void gets(char *str);
 void kprintd(int num);
+void kprints(char *str);
 
 #endif

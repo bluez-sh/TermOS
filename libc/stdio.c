@@ -28,3 +28,8 @@ void kprintd(int num)
     int_to_ascii(num, str);
     kprint(str);
 }
+
+void kprints(char *str)
+{
+    kprint(str);
+}

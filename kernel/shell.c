@@ -6,6 +6,7 @@
 #include "../cpu/timer.h"
 #include "../libc/stdio.h"
 #include "../fs/sfs.h"
+#include "../programs/program.h"
 
 #define NB_COMMANDS 17
 static char *cmd_all[] = {
@@ -167,7 +168,8 @@ void shell_exec(char *cmd)
         kprint(cmd_all[i]);
 
     } else {
-        kprint("[!] Command not found");
+        if (!exec_program(cmd))
+            kprint("[!] Command not found");
     }
     kprint("\n>");
 }
