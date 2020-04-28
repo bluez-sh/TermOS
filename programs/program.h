@@ -7,17 +7,20 @@
 
 typedef struct prog_struct {
     char name[16];
-    void (*main)(void);
+    int (*main)(int, char**);
 } prog_struct_t;
 
 // register the program structs
-extern prog_struct_t prog_hello;
+extern prog_struct_t prog_echo;
+extern prog_struct_t prog_calculator;
 
 static prog_struct_t *prog_list[MAX_PROGS] = {
-    &prog_hello,
+    &prog_echo,
+    &prog_calculator,
     0,
 };
 
-int exec_program(char *name);
+int exec_program(char *cmd);
+void print_program_names();
 
 #endif

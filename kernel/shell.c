@@ -8,10 +8,10 @@
 #include "../fs/sfs.h"
 #include "../programs/program.h"
 
-#define NB_COMMANDS 17
+#define NB_COMMANDS 15
 static char *cmd_all[] = {
-    "help", "poweroff", "clear", "getpage", "freepage", "echo",
-    "fread<>", "fwrite<>", "gettick", "calc<>", "test_stdin",
+    "help", "poweroff", "clear", "getpage", "freepage",
+    "fread<>", "fwrite<>", "gettick", "test_stdin",
     "debugfs", "formatfs", "mountfs", "fcreate", "fremove<>",
     "fstat<>"
 };
@@ -47,13 +47,9 @@ void shell_exec(char *cmd)
     } else if (!str_cmp(cmd, "freepage")) {
         free(10);
 
-    } else if (!str_cmp_n(cmd, "echo ", 5)) {
-        kprint(cmd+5);
-
     } else if (!str_cmp_n(cmd, "fread ", 6)) {
         char *buf = (char*) kmallocz(512);
         int fd = ascii_to_int(cmd+6);
-        /*read_file(fd, buf);*/
         if (sfs_read(fd, buf, 512, 0) < 0)
             kprint("ERR: Cannot read file");
         else
@@ -71,46 +67,12 @@ void shell_exec(char *cmd)
 
         n = str_len(cmd);
         mem_cpy(cmd, buf, n);
-        /*write_file(fd, buf);*/
         if (sfs_write(fd, buf, n, 0) < 0)
             kprint("ERR: Cannot write to file");
         free(512);
 
     } else if (!str_cmp(cmd, "gettick")) {
         kprintd(timer_get_ticks());
-
-    } else if (!str_cmp_n(cmd, "calc ", 5)) {
-        int op1, op2, res = 0;
-        char opr, err = 0;
-        cmd += 5;
-        op1 = ascii_to_int(cmd);
-        while (*cmd >= '0' && *cmd <= '9') cmd++;
-        opr = *cmd++;
-        op2 = ascii_to_int(cmd);
-
-        switch (opr) {
-            case '+': res = op1 + op2;  
-                      break;
-            case '-': res = op1 - op2;
-                      break;
-            case '*': res = op1 * op2;
-                      break;
-            case '/':
-                      if (op2 == 0) {
-                          kprint("ERR: Division by 0");
-                          err = 1;
-                      } else {
-                          res = op1 / op2;
-                      }
-                      break;
-            case '%': res = op1 % op2;
-                      break;
-            default:
-                      kprint("ERR: Invalid Operator");
-                      err = 1;
-        }
-        if (!err)
-            kprintd(res);
 
     } else if (!str_cmp(cmd, "test_stdin")) {
         char str[64];
@@ -157,7 +119,7 @@ void shell_exec(char *cmd)
         }
 
     } else if (!str_cmp(cmd, "help")) {
-        kprint("Commands: ");
+        kprint("System Commands:\n");
         int i;
         for (i = 0; i < NB_COMMANDS-1; i++) {
             kprint(cmd_all[i]);
@@ -166,6 +128,8 @@ void shell_exec(char *cmd)
                 kprint("\n");
         }
         kprint(cmd_all[i]);
+        kprint("\n\nAvailable programs:\n");
+        print_program_names();
 
     } else {
         if (!exec_program(cmd))
