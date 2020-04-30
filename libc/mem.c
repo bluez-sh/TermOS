@@ -15,7 +15,7 @@ void mem_set(void *dst, int val, unsigned nbytes)
 }
 
 #define PAGE_SIZE 512
-#define MEM_START (0x10000)
+#define MEM_START (0x100000)
 static uint32_t free_mem_ptr = MEM_START;
 
 static uint32_t alloc_page()

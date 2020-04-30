@@ -7,13 +7,14 @@
 #include "../libc/stdio.h"
 #include "../fs/sfs.h"
 #include "../programs/program.h"
+#include "../sched/sched.h"
 
-#define NB_COMMANDS 15
+#define NB_COMMANDS 17
 static char *cmd_all[] = {
     "help", "poweroff", "clear", "getpage", "freepage",
-    "fread<>", "fwrite<>", "gettick", "test_stdin",
+    "fread<>", "fwrite<>", "gettick", "test-stdin",
     "debugfs", "formatfs", "mountfs", "fcreate", "fremove<>",
-    "fstat<>"
+    "fstat<>", "schedule", "taskview"
 };
 
 void shell_run()
@@ -74,7 +75,7 @@ void shell_exec(char *cmd)
     } else if (!str_cmp(cmd, "gettick")) {
         kprintd(timer_get_ticks());
 
-    } else if (!str_cmp(cmd, "test_stdin")) {
+    } else if (!str_cmp(cmd, "test-stdin")) {
         char str[64];
         do {
             gets(str);
@@ -118,6 +119,12 @@ void shell_exec(char *cmd)
             kprintd(ret);
         }
 
+    } else if (!str_cmp(cmd, "schedule")) {
+        exec_task_queue();
+
+    } else if (!str_cmp(cmd, "taskview")) {
+        toggle_task_view();
+
     } else if (!str_cmp(cmd, "help")) {
         kprint("System Commands:\n");
         int i;
@@ -132,8 +139,7 @@ void shell_exec(char *cmd)
         print_program_names();
 
     } else {
-        if (!exec_program(cmd))
-            kprint("[!] Command not found");
+        sched_new_task(cmd);
     }
     kprint("\n>");
 }

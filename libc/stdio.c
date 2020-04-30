@@ -1,9 +1,12 @@
 #include "stdio.h"
 #include "string.h"
 #include "util.h"
+#include "mem.h"
 #include "../drivers/screen.h"
 
-static char stdin_buf[512];
+#define STDIN_SIZE 512
+
+static char stdin_buf[STDIN_SIZE];
 static volatile int stdin_ready;
 
 void copy_to_stdin(char *input)
@@ -18,6 +21,7 @@ void gets(char *str)
         ;
     __asm__ __volatile__("cli");
     str_cpy(str, stdin_buf);
+    mem_set(stdin_buf, 0, STDIN_SIZE);
     stdin_ready = 0;
     __asm__ __volatile__("sti");
 }

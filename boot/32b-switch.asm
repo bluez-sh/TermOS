@@ -20,7 +20,7 @@ init_pm:        mov     ax, data_seg_c
                 mov     fs, ax
                 mov     gs, ax
 
-                mov     ebp, 0x3000000
+                mov     ebp, 0x5000000
                 mov     esp, ebp
 
                 jmp     begin_pm

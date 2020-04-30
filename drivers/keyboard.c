@@ -5,10 +5,12 @@
 #include "../libc/string.h"
 #include "../libc/function.h"
 #include "../libc/stdio.h"
+#include "../sched/sched.h"
 
 #define BACKSPACE 0x0e
 #define RETURN    0x1c
 #define SHIFT     0x2a
+#define LCTRL     0x1d
 
 #define MAX_SCANCODE 57
 
@@ -37,7 +39,6 @@ const char *sc_name[] = { "ERROR", "Esc", "1", "2", "3", "4", "5", "6",
 static void keyboard_callback(registers_t *regs)
 {
     uint8_t scancode = port_r8(0x60);
-    /*char sc[16];*/
 
     switch(scancode) {
         case SHIFT:
@@ -45,6 +46,12 @@ static void keyboard_callback(registers_t *regs)
             break;
         case SHIFT+0x80:
             kbd_state.shift_held = 0;
+            break;
+        case LCTRL:
+            kbd_state.ctrl_held = 1;
+            break;
+        case LCTRL+0x80:
+            kbd_state.ctrl_held = 0;
             break;
         case BACKSPACE:
             if (keys_in_buf > 0) {
@@ -65,16 +72,22 @@ static void keyboard_callback(registers_t *regs)
     if (scancode > MAX_SCANCODE) {
         if (scancode == 58)
             kbd_state.caps_on = !kbd_state.caps_on;
-        /*int_to_ascii(scancode, sc);*/
         /*kprint("\nScancode: ");*/
-        /*kprint(sc);*/
+        /*kprintd(scancode);*/
     } else {
-        char key = kbd_state.shift_held ? 
-                   sc_ascii_shift[(int)scancode]
-                   : sc_ascii[(int)scancode];
+        char key = kbd_state.shift_held ? sc_ascii_shift[(int)scancode]
+                                   : sc_ascii[(int)scancode];
 
         if (key >= 'a' && key <= 'z' && kbd_state.caps_on)
             key = sc_ascii_shift[(int)scancode];
+
+        if (kbd_state.ctrl_held) {
+            if (key == 'c' || key == 'C') {
+                kbd_state.ctrl_held = 0;
+                prompt_add_program();
+            }
+            return;
+        }
 
         char str[2] = {key, '\0'};
         if (key != '?' || scancode == 0x35) {
@@ -82,9 +95,8 @@ static void keyboard_callback(registers_t *regs)
             kprint(str);
             keys_in_buf++;
         }
-        /*int_to_ascii(scancode, sc);*/
         /*kprint("\nScancode: ");*/
-        /*kprint(sc);*/
+        /*kprintd(scancode);*/
     }
     UNUSED(regs);
 }

@@ -13,10 +13,12 @@ typedef struct prog_struct {
 // register the program structs
 extern prog_struct_t prog_echo;
 extern prog_struct_t prog_calculator;
+extern prog_struct_t prog_sleep;
 
 static prog_struct_t *prog_list[MAX_PROGS] = {
     &prog_echo,
     &prog_calculator,
+    &prog_sleep,
     0,
 };
 

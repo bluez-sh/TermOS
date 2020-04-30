@@ -4,7 +4,7 @@
 
 int echo_main(int argc, char **argv)
 {
-    char str[512];
+    char str[512] = {0};
     char *ptr = str;
 
     for (int i = 1; i < argc; i++) {

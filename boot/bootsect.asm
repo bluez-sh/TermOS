@@ -33,7 +33,7 @@ ld_kernel:  pusha
             mov     es, ax
 
             mov     bx, 0x0000
-            mov     dh, 60
+            mov     dh, 63
             mov     dl, [boot_drive_c]
             call    disk_load
 

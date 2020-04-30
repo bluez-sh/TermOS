@@ -7,4 +7,6 @@ drivers/tags
 fs/tags
 kernel/tags
 libc/tags
+programs/tags
+sched/tags
 tags
