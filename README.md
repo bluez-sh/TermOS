@@ -9,6 +9,7 @@ An x86 based hobby OS made from scratch
 - Necessary drivers (Keyboard, Screen, ATA)
 - Program interface to register and handle user programs (though they still run in kernel space)
 - A simple system shell to execute commands (and run user programs) - No GUI
+- FCFS program scheduler (can also interrupt the queue and enqueue new programs with <code>LCtrl+C</code>)
 
 ## Possible Features
 - File system abstraction in libc
@@ -31,7 +32,9 @@ An x86 based hobby OS made from scratch
 - Run the command: <code>qemu-img create hdd.img 512M</code> to create a virtual image for hard disk
 - Then run:<br>
 <code>make</code> - to build <br>
-<code>make run</code> - to build and run the os on qemu <br>
+<code>make run</code> - to build and run the OS on qemu <br>
 <code>make debug</code> - to build and start gdb server (change the debug rule in Makefile, if required)
+- Note: After running the OS for first time, run the OS command <code>formatfs</code> to format 
+<code>hdd.img</code> with SimpleFS
 
 
