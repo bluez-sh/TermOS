@@ -16,6 +16,6 @@ struct task {
 void toggle_task_view();
 void prompt_add_program();
 void exec_task_queue();
-void sched_new_task();
+void sched_new_task(char *cmd, int exec_now);
 
 #endif
