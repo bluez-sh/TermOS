@@ -4,9 +4,7 @@
 #include "../libc/string.h"
 #include "../programs/program.h"
 
-#define MAX_TASKS   10
-
-static int task_view = 0;
+static int task_view = 1;
 
 static volatile struct task task_queue[MAX_TASKS];
 static volatile int front = -1;
@@ -85,11 +83,12 @@ void exec_task_queue()
         kprint("\n");
 }
 
-void sched_new_task(char *cmd)
+void sched_new_task(char *cmd, int exec_now)
 {
     if (task_queue_add(cmd) < 0) {
-        kprint("[!] SCHED: Maximum tasks exceeded");
+        kprint("\n[!] SCHED: Maximum tasks exceeded");
         return;
     }
-    exec_task_queue();
+    if (exec_now)
+        exec_task_queue();
 }

@@ -3,7 +3,8 @@
 
 #include "../cpu/types.h"
 
-#define CMD_SIZE 512
+#define CMD_SIZE    512
+#define MAX_TASKS   10
 
 static uint8_t alloc_task_id = 0;
 

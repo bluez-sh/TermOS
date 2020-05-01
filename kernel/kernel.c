@@ -18,11 +18,12 @@ void kmain(void)
         if (ata_drive_select(i%2, i/2) >= 0)
             break;
 
-    delay(1500);
+    if (sfs_mount() < 0)
+        kprint("\n[!] SFS: Error mounting drive");
+    else
+        kprint("\n[+] SFS: Drive mount success");
 
-    if (sfs_mount() < 0) {
-        kprint("[!] SFS: Error mounting drive");
-    }
+    delay(2000);
 
     clear_screen();
     kprint("\nWelcome to TermOS!\n");
