@@ -3,13 +3,14 @@ An x86 based hobby OS made from scratch
 
 ## Features
 - Custom bootloader written in x86 asm
-- Kernel's own libc
+- Kernel's own libc (library used by the kernel as well as the user programs)
 - Linear memory manager (physical memory only)
 - SimpleFS File System support (inode based)
 - Necessary drivers (Keyboard, Screen, ATA)
 - Program interface to register and handle user programs (though they still run in kernel space)
 - A simple system shell to execute commands (and run user programs) - No GUI
 - FCFS program scheduler (can also interrupt the queue and enqueue new programs with <code>LCtrl+C</code>)
+- Multiple commands can also be added to the queue from a file and executed using command "fexec \<file descrpitor\>"
 
 ## Possible Features
 - File system abstraction in libc
