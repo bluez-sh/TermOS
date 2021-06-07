@@ -37,5 +37,8 @@ An x86 based hobby OS made from scratch
 <code>make debug</code> - to build and start gdb server (change the debug rule in Makefile, if required)
 - Note: After running the OS for first time, run the OS command <code>formatfs</code> to format 
 <code>hdd.img</code> with SimpleFS
+<br><br>
+
+> Find the full project report here: https://docs.google.com/document/d/e/2PACX-1vQ-U2EtcHYvwEpf5zWgf_OnuEpHnjlT0J8zZ0_djFvCirTCkCu-3jNLo5R0jY5SCs4F849UCYV8o1Dq/pub
 
 
